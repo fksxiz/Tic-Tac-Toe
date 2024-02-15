@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.TicTacController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <StackPane prefHeight="150.0" prefWidth="200.0">
+        <children>
+            <TextField maxWidth="100.0" minWidth="100.0" promptText="Player1 name" StackPane.alignment="TOP_LEFT">
+                <StackPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </StackPane.margin>
+            </TextField>
+            <Canvas fx:id="TicTacCanvas" height="300.0" width="300.0" StackPane.alignment="BOTTOM_CENTER" />
+            <TextField maxWidth="100.0" minHeight="-Infinity" minWidth="100.0" promptText="Player2 name" StackPane.alignment="TOP_RIGHT">
+                <StackPane.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </StackPane.margin>
+            </TextField>
+        </children>
+    </StackPane>
+
+    <Label fx:id="resultText" text="-" />
+    <Button onAction="#onResetButtonClick" text="Reset" textAlignment="CENTER" />
+</VBox>

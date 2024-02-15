@@ -7,6 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class TicTacController {
     @FXML
@@ -26,7 +29,7 @@ public class TicTacController {
         TicTacCanvas.setOnMouseClicked(this::canvasMouseClick);
         TicTacCanvas.setHeight(TicTacCanvas.getWidth());
         drawField();
-        drawXO(true);
+        drawXO(false,2,2);
     }
 
     private void drawField(){
@@ -42,12 +45,20 @@ public class TicTacController {
         }
     }
 
-    private void drawXO(boolean isX){
+    private void drawXO(boolean isX,int row, int col){
         GraphicsContext gc = TicTacCanvas.getGraphicsContext2D();
-        if(isX){gc.setFill(Color.RED);}else{gc.setFill(Color.BLUE);}
         double offset = TicTacCanvas.getWidth()/3;
-        double width = 2;
-        gc.fillText(isX?"X":"O",0,0);
+        double lineOffset = 5;
+
+        if(isX) {
+            gc.setStroke(Color.RED);
+            gc.strokeLine(col*offset + lineOffset, row*offset + lineOffset,  offset*row+offset - lineOffset, offset*col+offset - lineOffset);
+            gc.strokeLine(col*offset + offset - lineOffset, row*offset +  + lineOffset, col*offset +  lineOffset, row*offset + offset - lineOffset);
+        }else
+        {
+            gc.setStroke(Color.BLUE);
+            gc.strokeOval(col*offset + lineOffset, row*offset + lineOffset, offset - lineOffset * 2, offset - lineOffset * 2);
+        }
     }
 
     @FXML
