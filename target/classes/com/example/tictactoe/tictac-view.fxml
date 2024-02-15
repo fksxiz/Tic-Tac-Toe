@@ -11,13 +11,13 @@
     </padding>
     <StackPane prefHeight="150.0" prefWidth="200.0">
         <children>
-            <TextField maxWidth="100.0" minWidth="100.0" promptText="Player1 name" StackPane.alignment="TOP_LEFT">
+            <TextField fx:id="player1" maxWidth="100.0" minWidth="100.0" promptText="Player1 name" text="Player1" StackPane.alignment="TOP_LEFT">
                 <StackPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </StackPane.margin>
             </TextField>
             <Canvas fx:id="TicTacCanvas" height="300.0" width="300.0" StackPane.alignment="BOTTOM_CENTER" />
-            <TextField maxWidth="100.0" minHeight="-Infinity" minWidth="100.0" promptText="Player2 name" StackPane.alignment="TOP_RIGHT">
+            <TextField fx:id="player2" maxWidth="100.0" minHeight="-Infinity" minWidth="100.0" promptText="Player2 name" text="Player2" StackPane.alignment="TOP_RIGHT">
                 <StackPane.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </StackPane.margin>
