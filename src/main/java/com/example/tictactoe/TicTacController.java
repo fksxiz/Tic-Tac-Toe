@@ -11,6 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 public class TicTacController {
     @FXML
     private Label resultText;
@@ -23,13 +25,16 @@ public class TicTacController {
         x
     }
 
+    private Symbol[][] Matrix = new Symbol[3][3];
+
+    private boolean isX=true;
+
     @FXML
     public void initialize() {
         //Установка обработчика событий
         TicTacCanvas.setOnMouseClicked(this::canvasMouseClick);
         TicTacCanvas.setHeight(TicTacCanvas.getWidth());
         drawField();
-        drawXO(false,2,2);
     }
 
     private void drawField(){
@@ -45,19 +50,22 @@ public class TicTacController {
         }
     }
 
-    private void drawXO(boolean isX,int row, int col){
+    private void drawXO(int row, int col){
         GraphicsContext gc = TicTacCanvas.getGraphicsContext2D();
         double offset = TicTacCanvas.getWidth()/3;
         double lineOffset = 5;
-
-        if(isX) {
-            gc.setStroke(Color.RED);
-            gc.strokeLine(col*offset + lineOffset, row*offset + lineOffset,  offset*row+offset - lineOffset, offset*col+offset - lineOffset);
-            gc.strokeLine(col*offset + offset - lineOffset, row*offset +  + lineOffset, col*offset +  lineOffset, row*offset + offset - lineOffset);
-        }else
-        {
-            gc.setStroke(Color.BLUE);
-            gc.strokeOval(col*offset + lineOffset, row*offset + lineOffset, offset - lineOffset * 2, offset - lineOffset * 2);
+        if(Matrix[row][col]==null) {
+            if (this.isX) {
+                gc.setStroke(Color.RED);
+                gc.strokeLine(col * offset + lineOffset, row * offset + lineOffset, offset * col + offset - lineOffset, offset * row + offset - lineOffset);
+                gc.strokeLine(col * offset + offset - lineOffset, row * offset + +lineOffset, col * offset + lineOffset, row * offset + offset - lineOffset);
+                Matrix[row][col]=Symbol.x;
+            } else {
+                gc.setStroke(Color.BLUE);
+                gc.strokeOval(col * offset + lineOffset, row * offset + lineOffset, offset - lineOffset * 2, offset - lineOffset * 2);
+                Matrix[row][col]=Symbol.o;
+            }
+            isX=!isX;
         }
     }
 
@@ -65,13 +73,24 @@ public class TicTacController {
     protected void onResetButtonClick() {
         drawField();
         resultText.setText("-");
+        Matrix = new Symbol[3][3];
     }
 
     private void canvasMouseClick(MouseEvent event){
         if(event.getButton()== MouseButton.PRIMARY){
-            Double x = event.getX();
-            Double y = event.getY();
+            double offset = TicTacCanvas.getWidth()/3;
+            double x = event.getX();
+            double y = event.getY();
+            int r=-1,c=-1;
+                for(int i=0;i<3;i++) {
+                    if(x>=i*offset&&x<i*offset+offset) {
+                        c=i;
+                    }
+                    if(y>=i*offset&&y<i*offset+offset) {
+                        r=i;
+                    }
+                }
+                drawXO(r,c);
+            }
         }
-    }
-
 }
